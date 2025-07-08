@@ -11,7 +11,10 @@
   <script type="text/javascript">
     const myWidget = cloudinary.createUploadWidget({
       cloudName: 'ddhbsteya',   // ← 改成你的
-      uploadPreset: 'hi.Fiona'        // ← 你剛剛建立的 unsigned preset
+      uploadPreset: 'hi.Fiona',        // ← 你剛剛建立的 unsigned preset
+      folder: 'Hi.Fiona', // 可選，會存在 uploads 資料夾中
+      multiple: false,   // 可改 true 讓使用者一次上傳多張
+      maxFileSize: 2000000, // 限制檔案大小（單位 byte，例如 2MB）
     }, (error, result) => {
       if (!error && result && result.event === "success") {
         console.log('上傳成功！圖片網址：', result.info.secure_url);
