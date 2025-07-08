@@ -1,48 +1,32 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>圖片上傳 + 寫入 Sheets</title>
-  <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+  <title>圖片上傳測試</title>
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 </head>
 <body>
   <button id="upload_widget">上傳圖片</button>
-  <div id="result" style="margin-top: 20px;"></div>
+  <div id="output" style="margin-top: 20px;"></div>
 
-  <script>
-    const webhookUrl = 'https://script.google.com/macros/s/AKfycbz4OGiEqs7h6a5WJbI-CvDakvux3w6RyUY82xfu4rYetdl4KFyJPKnmPBtERUJ29Fh5tw/exec'; // ← ✨ 貼上剛剛部署的網址
-
+  <script type="text/javascript">
     const myWidget = cloudinary.createUploadWidget({
-      cloudName: 'ddhbsteya',    // ← 改成你的
-      uploadPreset: 'hi.Fiona',        // ← 你的 unsigned preset
+      cloudName: 'ddhbsteya',   // ← 改成你的
+      uploadPreset: 'hi.Fiona',        // ← 你剛剛建立的 unsigned preset
       folder: 'uploads', // 可選，會存在 uploads 資料夾中
       multiple: false,   // 可改 true 讓使用者一次上傳多張
       maxFileSize: 2000000, // 限制檔案大小（單位 byte，例如 2MB）
     }, (error, result) => {
       if (!error && result && result.event === "success") {
-        const imageUrl = result.info.secure_url;
-        const uploaderName = '訪客'; // 可改成表單輸入者姓名
-        
-        // 顯示預覽
-        document.getElementById('result').innerHTML = `
-          ✅ 圖片上傳成功！<br>
-          <img src="${imageUrl}" style="max-width:300px" />
-          <br><small>${imageUrl}</small>
-        `;
+        console.log('上傳成功！圖片網址：', result.info.secure_url);
 
-        // 寫入 Google Sheets
-        fetch(webhookUrl, {
-          method: 'POST',
-          body: JSON.stringify({
-            image_url: imageUrl,
-            uploader_name: uploaderName
-          }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }).then(res => res.json()).then(res => {
-          console.log('寫入結果:', res);
-        });
+        // 顯示圖片網址與預覽
+        const outputDiv = document.getElementById('output');
+        outputDiv.innerHTML = `
+          <p>✅ 上傳成功！圖片網址：</p>
+          <input type="text" value="${result.info.secure_url}" style="width: 90%" readonly />
+          <br><br>
+          <img src="${result.info.secure_url}" style="max-width: 300px; border: 1px solid #ccc" />
+        `;
       }
     });
 
