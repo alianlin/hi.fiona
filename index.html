@@ -12,15 +12,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
     <title>Hi.Fiona Flower</title>
-    <meta name="keywords" content="Hi.Fiona Flower" />
-    <meta name="description" content="Hi.Fiona Flower" />
+    <meta name="keywords" content="Hi.Fiona Flower,fiona,flower,永生花,乾燥花,花藝,花藝擺飾,生活飾品" />
+    <meta name="description" content="Hi.Fiona Flower | Flower Made with Heart" />
     <meta property="og:title" content="Hi.Fiona Flower" />
-    <meta property="og:description" content="Lin ALian is a UI Designer,with 10 years of experience in design, digital, and marketing." />
+    <meta property="og:description" content="Hi.Fiona Flower | Flower Made with Heart" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://alian-design.com/" />
-    <meta property="og:image" content="https://alian-design.com/images/share.jpg" />
-    <meta property="og:image:url" content="https://alian-design.com/images/share.jpg" />
-    <link rel="icon" href="https://alian-design.com/images/favicon.ico" type="image/x-icon" />
+    <meta property="og:url" content="https://alianlin.github.io/hi.fiona/" />
+    <meta property="og:image" content="https://alianlin.github.io/hi.fiona/images/share.jpg" />
+    <meta property="og:image:url" content="https://alianlin.github.io/hi.fiona/images/share.jpg" />
+    <link rel="icon" href="https://alianlin.github.io/hi.fiona/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/grid.css">
@@ -43,7 +43,7 @@
     <header class="header" id="header">
     </header>
     <div class="section_kv">
-        <div class="content" data-aos="kv-fadeOut" data-aos-anchor=".kv-fadeOut">
+        <div class="content" data-aos="kv-fadeOut" data-aos-anchor=".kv-fadeOut" data-aos-anchor-placement="top-bottom">
             <h1 class="visually_hide">
                 Hi. Fiona Flower
                 Flower Made with Heart
@@ -70,6 +70,12 @@
         </div> -->
     </div>
     <section class="section_design section_products">
+        <div class="item item_news" v-if="homeData.length > 0">
+            <h2 class="main_title">
+              <p>News</p>
+            </h2>
+            <h5>{{ homeData[0].news }}</h5>
+        </div>
     	<div id="section_design" class="anchor"></div>
         <div class="container">
             <h2 class="main_title">
@@ -77,47 +83,16 @@
             </h2>
             <div class="row_content  swiper mySwiper" data-aos="zoom-out">
                 <div class="swiper-wrapper">
-                    <a href="design.html#app" class="item item_design swiper-slide">
+                    <a v-for="item in homeData"
+                    :key="item.products_id"
+                    class="item item_design swiper-slide"
+                    :href="`products.html#${item.products_id}`">
                         <div class="pic">
-                            <img  src="images/index_APP.jpg" alt="APP">
+                            <img  :src="item.product_img" :alt="item.products_title">
                         </div>
                         <h3 class="title">
-                            <p class="main">花藝擺飾</p>
-                            <p class="eng">APP</p>
-                        </h3>
-                    </a>
-                    <a href="design.html#landing" class="item item_design swiper-slide">
-                        <div class="pic">
-                            <img  src="images/index_Landing.jpg" alt="Landing">
-                        </div>
-                        <h3 class="title">
-                            <p class="main"></p>
-                            <p class="eng">Landing page</p>
-                        </h3>
-                    </a>
-                    <a href="design.html#award" class="item item_design swiper-slide">
-                        <div class="pic">
-                            <img  src="images/index_Award.jpg" alt="Award">
-                        </div>
-                        <h3 class="title">
-                            <p class="main"></p>
-                            <p class="eng">Award</p>
-                        </h3>
-                    </a>
-                    <a href="design.html#graphic" class="item item_design swiper-slide">
-                        <div class="pic">
-                            <img  src="images/index_Graphic.jpg" alt="Graphic">
-                        </div>
-                        <h3 class="title">
-                            <p>Graphic</p>
-                        </h3>
-                    </a>
-                    <a a href="design.html#website" class="item item_design swiper-slide">
-                        <div class="pic">
-                            <img src="images/index_Website.jpg" alt="Website">
-                        </div>
-                        <h3 class="title">
-                            <p>Website</p>
+                            <p class="main">{{ item.products_title }}</p>
+                            <p class="eng">{{ item.products_eng }}</p>
                         </h3>
                     </a>
                 </div>
@@ -128,7 +103,7 @@
             <div class="swiper-button swiper-button-next ">
                 <img src="images/slide_arrow.png" alt="next">
             </div>
-            <a href="design_landing.html" class="btn_primary">
+            <a href="products.html" class="btn_primary">
                 <span>More</span>
                 <img class="arrow" src="images/btn_arrow.png" alt="go to Skills">
             </a>
@@ -161,35 +136,61 @@
 <script src="js/mold.js"></script>
 <script>
 	AOS.init();
-	var swiper = new Swiper(".mySwiper", {
-	    effect: 'coverflow',
-	    grabCursor: true,
-	    loop: true,
-	    centeredSlides: true,
-	    keyboard: true,
-	    spaceBetween: 10,
-	    slidesPerView: 2,
-	    speed: 300,
-	    navigation: {
-	        nextEl: '.swiper-button-next',
-	        prevEl: '.swiper-button-prev',
-	    },
-	    coverflowEffect: {
-	        rotate: 0,
-	        stretch: 0,
-	        depth: 0,
-	        modifier: 3,
-	        slideShadows: false
-	    },
-	    breakpoints: {
-	        768: {
-	            slidesPerView: 3,
-	            spaceBetween: 30,
-	        }
-	    },
-	});
-
-    $('#footer').load("footer.html");
 </script>
-
+<script type="module">
+    import {
+      createApp,
+      ref,
+      onMounted,
+      nextTick
+    } from 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.esm-browser.prod.js';
+    
+    import { useFetchData } from './js/useFetchData.js';
+    
+    createApp({
+      setup() {
+        const { homeData, fetchHomeData } = useFetchData();
+    
+        onMounted(async () => {
+          await fetchHomeData(); // 載入資料
+          await nextTick();      // 等 DOM 渲染完
+          initSwiper();          // 再初始化 Swiper
+        });
+    
+        const initSwiper = () => {
+          new Swiper(".mySwiper", {
+            effect: 'coverflow',
+            grabCursor: true,
+            loop: true,
+            centeredSlides: true,
+            keyboard: true,
+            spaceBetween: 10,
+            slidesPerView: 2,
+            speed: 300,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            coverflowEffect: {
+              rotate: 0,
+              stretch: 0,
+              depth: 0,
+              modifier: 3,
+              slideShadows: false
+            },
+            breakpoints: {
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              }
+            },
+          });
+        };
+    
+        return {
+          homeData
+        };
+      }
+    }).mount('.section_products');
+    </script>
 </html>

@@ -11,11 +11,11 @@
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, shrink-to-fit=no">
-    <title>ALian | Portfolio - APP</title>
-    <meta name="keywords" content="Portfolio,ALian Lin,ALian,A-Lian,林阿蓮,阿蓮,UI,Designer,Web Designer" />
-    <meta name="description" content="ALian Lin is a UI Designer,with 10 years of experience in design, digital, and marketing." />
-    <meta property="og:title" content="ALian Lin | Portfolio" />
-    <meta property="og:description" content="ALian Lin is a UI Designer,with 10 years of experience in design, digital, and marketing." />
+    <title>Hi.Fiona Flower</title>
+    <meta name="keywords" content="Hi.Fiona Flower,fiona,flower,永生花,乾燥花,花藝,花藝擺飾,生活飾品" />
+    <meta name="description" content="Hi.Fiona Flower | Flower Made with Heart" />
+    <meta property="og:title" content="Hi.Fiona Flower" />
+    <meta property="og:description" content="Hi.Fiona Flower | Flower Made with Heart" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://alian-design.com" />
     <meta property="og:image" content="https://alian-design.com/images/share.jpg" />
@@ -28,33 +28,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"></script>
     <script src="https://s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-64282.js"></script>
 </head>
-<body class="page" id="design">
+<body class="page">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGWNDDQ"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <header class="header" id="header">
     </header>
+    <div id="design">
     <div class="section_kv kv_page  kv_design">
        <div class="container">
             <h1 class="title">
-                <p>Design</p>
+                <p>Products</p>
             </h1>
        </div>
-        <div class="kv_bg">
-            <div class="bg_circle"></div>
-            <div class="bg_circle"></div>
-            <div class="bg_circle"></div>
-            <div class="bg_circle"></div>
-            <div class="bg_circle"></div>
-            <div class="bg_circle"></div>
-            <div class="bg_circle"></div>
-            <div class="bg_lin" ></div>
-            <div class="bg_lin" ></div>
-            <div class="bg_lin"></div>
+       <div class="kv_bg">
+            <div class="kv_img kv_pc b_block">
+                <img src="images/kv_banner_pc.jpg" alt="kv">
+            </div>
+            <div class="kv_img kv_m s_block">
+                <img src="images/kv_banner_m.jpg" alt="kv">
+            </div>
         </div>
     </div>
-    <section class="section_page design_page">
+    <section class="section_page design_page products_page">
         <div class="container container_tab">
             <div class="row">
               <a v-for="tab in categories"
@@ -62,7 +59,7 @@
                 href="javascript:void(0);"
                 :class="['btn_tab', { 'is-active': currentCategory === tab }]"
                 @click="changeTab(tab)">
-                <span>{{ tab }}</span>
+                <span>{{ tabMap[tab] || tab }}</span>
                 </a>
             </div>
         </div>
@@ -74,9 +71,9 @@
         </div>
         <div class="container container_design">
             <!-- 搜尋 -->
-            <div class="search_area">
+            <!-- <div class="search_area">
                 <select class="label_input label_select label_year" v-model="selectedYear">
-                    <option value="">選擇年份</option> <!-- 預設選項，value 為空字串 -->
+                    <option value="">選擇年份</option>
                     <option v-for="year in availableYears" :key="year" :value="year">
                     {{ year }}
                     </option>
@@ -92,7 +89,7 @@
                         <path d="M10 23.5 20.035 15 10 6"/>
                     </svg>
                 </button>
-            </div>
+            </div> -->
             <!-- 全圖片顯示 -->
             <div class="info_area info_gallery">
                 <div class="row row_content">
@@ -109,7 +106,7 @@
                 </div>
             </div>
             <!-- 圖文顯示 -->
-            <div class="info_area info_project">
+            <!-- <div class="info_area info_project">
                 <div class="row row_content" v-for="item in pagedProjects" :key="item.id">
                     <div class="col-12 col-md-55">
                         <div class="item item_pic" data-aos="fade">
@@ -143,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="pagination_content" v-if="totalPages > 1">
                 <button class="btn_arrow pagination_arrow arrow_left" @click="currentPage--" :disabled="currentPage === 1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30">
@@ -174,152 +171,167 @@
 
                 <!-- ✅ 在這裡包住整段內容 -->
                 <div class="item item_info"  v-for="item in [modalItem]" :key="item.id">
-                    <h2 class="info_title" v-if="item.title.length">
-                        <p>{{ item.title }}</p>
-                    </h2>
-                    <div class="info_tag" v-if="item.year.length">
-                        <span v-if="item.category.length" class="tag">{{ item.category }}</span>
-                        <span v-if="item.client.length" class="tag">{{ item.client }}</span>
-                        <span v-if="item.year.length" class="tag">{{ item.year }}</span>
-                    </div>
-                    <h5 class="info_content">
-                        <p v-html="item.description">{{ item.description }}</p>
-                        <p v-if="item.responsibilities.length">
-                            負責項目：{{ item.responsibilities.join('、') }}
-                        </p>
-                    </h5>
-                    <div class="info_more">
-                        <a v-if="item.link" :href="item.link" class="btn_more info_more" target="_blank" rel="noopener">
-                            <span class="text">more</span>
-                            <span class="circle">
-                                <img class="arrow" src="images/btn_arrow_s.svg" alt="scroll down">
-                            </span>
-                        </a>
-                    </div>
+                        <div class="row">
+                            <div class="col-12 col-md-8">
+                                <div class="item item_pic">
+                                    <img :src="item.imageUrl" :alt="item.title" />
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="item">
+                                    <h2 class="info_title" v-if="item.title.length">
+                                        <p>{{ item.title }}</p>
+                                    </h2>
+                                    <div class="info_tag" v-if="item.year.length">
+                                        <span v-if="item.category.length" class="tag">{{ item.category }}</span>
+                                        <span v-if="item.client.length" class="tag">{{ item.client }}</span>
+                                        <span v-if="item.year.length" class="tag">{{ item.year }}</span>
+                                    </div>
+                                    <h5 class="info_content">
+                                        <p v-html="item.description">{{ item.description }}</p>
+                                        <p v-if="item.responsibilities.length">
+                                            負責項目：{{ item.responsibilities.join('、') }}
+                                        </p>
+                                    </h5>
+                                </div>
+                                <div class="info_more">
+                                    <a href="#" class="btn_more info_more" target="_blank" rel="noopener">
+                                        <span class="text">more</span>
+                                        <span class="circle">
+                                            <img class="arrow" src="images/btn_arrow_s.svg" alt="scroll down">
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="js/mold.js"></script>
-    <script type="module">
-import {
-  createApp,
-  ref,
-  onMounted,
-  watch,
-  nextTick
-} from 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.esm-browser.prod.js';
-
-import { useFetchData } from './js/useFetchData.js';
-import { usePagination } from './js/usePagination.js';
-import { initJustfont } from './js/useJustfont.js';
-
-createApp({
-  setup() {
-    const isLoading = ref(true);
-
-    const {
-      categories,
-      currentCategory,
-      projects,
-      path,
-      fetchData
-    } = useFetchData();
-
-    const {
-      currentPage,
-      totalPages,
-      pagedProjects,
-      availableYears,
-      selectedYear,
-      searchInput,
-      doSearch,
-    } = usePagination(projects);
-
-    const changeTab = (tab) => {
-      if (currentCategory.value === tab) return;
-      isLoading.value = true;
-      currentCategory.value = tab;
-      currentPage.value = 1;
-      searchInput.value = '';
-      selectedYear.value = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      window.location.hash = `#${tab}`;
-    };
-
-    //modal
-    const showModal = ref(false);        // 控制是否顯示 modal
-    const modalItem = ref(null);         // 儲存點擊的項目資料
-    const openModal = (item) => {
-    modalItem.value = item;
-    showModal.value = true;
-    };
-    const closeModal = () => {
-    showModal.value = false;
-    modalItem.value = null;
-    };
-
-
-    // ✅ 監聽網址 hash，確保 tab 狀態一致
-    window.addEventListener('hashchange', () => {
-      const hash = decodeURIComponent(window.location.hash.replace('#', '')).toLowerCase();
-      const match = categories.value.find(name => name.toLowerCase() === hash);
-      if (match && match !== currentCategory.value) {
-        currentCategory.value = match;
-        console.log('🔁 hashchange → 切換 tab:', match);
-      }
-    });
-
-    // ✅ 當 categories 初次載入後，根據 hash 切換 tab
-    watch(categories, () => {
-      const hash = decodeURIComponent(window.location.hash.replace('#', '')).toLowerCase();
-      const match = categories.value.find(name => name.toLowerCase() === hash);
-      if (match) {
-        currentCategory.value = match;
-        console.log('📌 初次載入根據 hash 切換 tab:', match);
-      }
-    }, { immediate: true });
-
-    onMounted(async () => {
-      isLoading.value = true;
-      await fetchData();     // 先抓 tabs
-      await nextTick();      // 等畫面更新
-      initJustfont();        // 套用字體
-      isLoading.value = false;
-    });
-
-    // 當 currentCategory 改變時，自動載入資料並顯示 loading 畫面
-    watch(currentCategory, async () => {
-      isLoading.value = true;
-      await nextTick();
-      isLoading.value = false;
-    });
-
-    return {
-      isLoading,
-      categories,
-      currentCategory,
-      projects,
-      path,
-      currentPage,
-      totalPages,
-      pagedProjects,
-      changeTab,
-      searchInput,
-      availableYears,
-      selectedYear,
-      doSearch,
-      showModal,
-      modalItem,
-      openModal,
-      closeModal,
-    };
-  }
-}).mount('#design');
-</script>
+</div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="js/mold.js"></script>
+<script type="module">
+        import {
+        createApp,
+        ref,
+        onMounted,
+        watch,
+        nextTick
+        } from 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.esm-browser.prod.js';
 
+        import { useFetchData } from './js/useFetchData.js';
+        import { usePagination } from './js/usePagination.js';
+        import { initJustfont } from './js/useJustfont.js';
+
+        createApp({
+        setup() {
+            const isLoading = ref(true);
+
+            const {
+            categories,
+            currentCategory,
+            projects,
+            path,
+            fetchData,
+            tabMap,
+            fetchHomeData  
+            } = useFetchData();
+
+            const {
+            currentPage,
+            totalPages,
+            pagedProjects,
+            availableYears,
+            selectedYear,
+            searchInput,
+            doSearch,
+            } = usePagination(projects);
+
+            const changeTab = (tab) => {
+            if (currentCategory.value === tab) return;
+            isLoading.value = true;
+            currentCategory.value = tab;
+            currentPage.value = 1;
+            searchInput.value = '';
+            selectedYear.value = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.location.hash = `#${tab}`;
+            };
+
+            //modal
+            const showModal = ref(false);        // 控制是否顯示 modal
+            const modalItem = ref(null);         // 儲存點擊的項目資料
+            const openModal = (item) => {
+            modalItem.value = item;
+            showModal.value = true;
+            };
+            const closeModal = () => {
+            showModal.value = false;
+            modalItem.value = null;
+            };
+
+
+            // ✅ 監聽網址 hash，確保 tab 狀態一致
+            window.addEventListener('hashchange', () => {
+            const hash = decodeURIComponent(window.location.hash.replace('#', '')).toLowerCase();
+            const match = categories.value.find(name => name.toLowerCase() === hash);
+            if (match && match !== currentCategory.value) {
+                currentCategory.value = match;
+                console.log('🔁 hashchange → 切換 tab:', match);
+            }
+            });
+
+            // ✅ 當 categories 初次載入後，根據 hash 切換 tab
+            watch(categories, () => {
+            const hash = decodeURIComponent(window.location.hash.replace('#', '')).toLowerCase();
+            const match = categories.value.find(name => name.toLowerCase() === hash);
+            if (match) {
+                currentCategory.value = match;
+                console.log('📌 初次載入根據 hash 切換 tab:', match);
+            }
+            }, { immediate: true });
+
+            onMounted(async () => {
+            isLoading.value = true;
+            await fetchHomeData(); // ✅ 一定要在 fetchData() 之前執行
+            await fetchData();     // 先抓 tabs
+            await nextTick();      // 等畫面更新
+            initJustfont();        // 套用字體
+            isLoading.value = false;
+            });
+
+            // 當 currentCategory 改變時，自動載入資料並顯示 loading 畫面
+            watch(currentCategory, async () => {
+            isLoading.value = true;
+            await nextTick();
+            isLoading.value = false;
+            });
+
+            return {
+            isLoading,
+            categories,
+            currentCategory,
+            projects,
+            path,
+            currentPage,
+            totalPages,
+            pagedProjects,
+            changeTab,
+            searchInput,
+            availableYears,
+            selectedYear,
+            doSearch,
+            showModal,
+            modalItem,
+            openModal,
+            closeModal,
+            tabMap
+            };
+        }
+        }).mount('#design');
+</script>
 </html>
