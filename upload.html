@@ -10,12 +10,12 @@
   <div id="result" style="margin-top: 20px;"></div>
 
   <script>
-    const webhookUrl = 'https://script.google.com/macros/s/AKfycbyIWHRGV3mm6MvB8H9B177LPX3pOuQxUop_g5iLlg7xqlFW2_JA5LTKcFM2MYZ69UciHQ/exec'; // ← ✨ 貼上剛剛部署的網址
+    const webhookUrl = 'https://script.google.com/macros/s/AKfycbz4OGiEqs7h6a5WJbI-CvDakvux3w6RyUY82xfu4rYetdl4KFyJPKnmPBtERUJ29Fh5tw/exec'; // ← ✨ 貼上剛剛部署的網址
 
     const myWidget = cloudinary.createUploadWidget({
       cloudName: 'ddhbsteya',    // ← 改成你的
       uploadPreset: 'hi.Fiona',        // ← 你的 unsigned preset
-      folder: 'Hi.Fiona', // 可選，會存在 uploads 資料夾中
+      folder: 'uploads5k4', // 可選，會存在 uploads 資料夾中
       multiple: false,   // 可改 true 讓使用者一次上傳多張
       maxFileSize: 2000000, // 限制檔案大小（單位 byte，例如 2MB）
     }, (error, result) => {
