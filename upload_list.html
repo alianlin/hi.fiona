@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>圖片清單</title>
+</head>
+<body>
+  <h2>歷史圖片上傳清單</h2>
+  <div id="gallery" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+
+  <script>
+    fetch('https://opensheet.vercel.app/1RcmJvj-N-dFnbpNhUwoaCoJpPLHQOWad2CkafV_AhzM/upload')
+      .then(res => res.json())
+      .then(data => {
+        const gallery = document.getElementById('gallery');
+        data.reverse().forEach(row => {
+          if (row.image_url) {
+            gallery.innerHTML += `
+              <div>
+                <img src="${row.image_url}" style="max-width: 200px; border: 1px solid #ccc;" />
+                <p>${row.uploader_name || '匿名'}<br><small>${row.created_at}</small></p>
+              </div>
+            `;
+          }
+        });
+      });
+  </script>
+</body>
+</html>
