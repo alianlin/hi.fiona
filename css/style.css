@@ -1446,6 +1446,7 @@ footer p{
 	align-items: flex-end;
 	justify-content: center;
 	padding: 1rem;
+	line-height: 1.25;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -1453,12 +1454,18 @@ footer p{
 	height: 100%;
 	margin: auto;
 	z-index: 2;
+	box-sizing: border-box;
 }
 
 .section_page .info_gallery figcaption h2.info_title{
+	display: -webkit-box;
 	color:#fff;
 	font-size: 1.35rem;
 	letter-spacing: 0.1em;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+	height: 3em;
+	overflow: hidden;
 	z-index: 2;
 }
 
@@ -1484,9 +1491,7 @@ footer p{
 	overflow: hidden;
 }
 
-.modal_page .item_pic{
-	margin-right: 1.5rem;
-}
+
 
 .section_page .item_pic::before,
 .modal_page .item_pic::before{
@@ -1521,7 +1526,8 @@ footer p{
 	letter-spacing: 0.02em;
 }
 
-.section_page .item_info .info_tag{
+.section_page .item_info .info_tag,
+.modal .item_info .info_tag{
 	margin-bottom: 1.25rem;
 	font-size: 0.75rem;
 	color: #9E9E9E;
@@ -1856,6 +1862,16 @@ footer p{
 	overflow: auto;
 }
 
+.modal .container_design h2.info_title{
+	margin-bottom: 1rem;
+}
+
+.modal div.info_more{
+	display: flex;
+	justify-content: flex-end;
+	margin: 1.5rem 0;
+}
+
 .modal-close {
   position: absolute;
   top: 0;
@@ -2055,6 +2071,11 @@ footer p{
 		filter: blur(40px);
 	}
 
+
+	.modal_page .item_pic{
+		margin-bottom: 1.5rem;
+	}
+
 	@keyframes circle_type1{
 		/* from, to{
 			border-radius: 50% 50% 35% 65% / 50% 55% 45% 50%;
@@ -2200,6 +2221,7 @@ footer p{
 
 	section.section_page{
 		padding: 12% 0;
+		min-height: 50vh;
 	}
 
 	.section_page .info_project  .item_pic{
@@ -2251,7 +2273,8 @@ footer p{
 	}
 
 	.section_page.design_page a.btn_tab{
-		width: 10rem;
+		width: fit-content;
+		white-space: nowrap;
 	}
 
 	/* .section_page.design_page .btn_tab:first-of-type{
@@ -2326,12 +2349,17 @@ footer p{
     	font-size: 1.458rem;
     }
 
+
 	h4{
 		font-size: 1.458rem;
 	}
 
 	h5{
 		font-size: 1.1rem;
+	}
+
+	.section_page{
+		min-height: 20vh;
 	}
 	
 	.section_page .item_info h5.info_content{
@@ -2389,6 +2417,11 @@ footer p{
 
 	.index .section_contact .content{
 		padding: 1.5% 0 0 0;
+	}
+
+
+	.modal_page .item_pic{
+		margin-right: 1.5rem;
 	}
 
 	

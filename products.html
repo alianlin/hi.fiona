@@ -182,21 +182,17 @@
                                     <h2 class="info_title" v-if="item.title.length">
                                         <p>{{ item.title }}</p>
                                     </h2>
-                                    <div class="info_tag" v-if="item.year.length">
+                                    <div class="info_tag">
                                         <span v-if="item.category.length" class="tag">{{ item.category }}</span>
-                                        <span v-if="item.client.length" class="tag">{{ item.client }}</span>
-                                        <span v-if="item.year.length" class="tag">{{ item.year }}</span>
+                                        <!-- <span v-if="item.year.length" class="tag">{{ item.year }}</span> -->
                                     </div>
                                     <h5 class="info_content">
                                         <p v-html="item.description">{{ item.description }}</p>
-                                        <p v-if="item.responsibilities.length">
-                                            負責項目：{{ item.responsibilities.join('、') }}
-                                        </p>
                                     </h5>
                                 </div>
                                 <div class="info_more">
                                     <a href="#" class="btn_more info_more" target="_blank" rel="noopener">
-                                        <span class="text">more</span>
+                                        <span class="text">聯絡我們</span>
                                         <span class="circle">
                                             <img class="arrow" src="images/btn_arrow_s.svg" alt="scroll down">
                                         </span>
