@@ -170,7 +170,7 @@
         </span>
     </a>
     <!-- Modal 外層 -->
-    <div class="modal_page modal-overlay vue-cloak" v-if="modalType === 'product'" @click.self="closeModal">
+    <div v-cloak class="modal_page modal-overlay" v-if="modalType === 'product'" @click.self="closeModal">
         <div class="modal">
             <div class="container-fluit container_design">
                 <button class="modal-close" @click="closeModal">×</button>
