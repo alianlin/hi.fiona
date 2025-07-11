@@ -119,8 +119,9 @@
     <div v-cloak class="modal_page modal-overlay" v-if="modalType === 'product'" @click.self="closeModal">
         <div class="modal">
             <div class="container-fluit container_design">
-                <button class="modal-close" @click="closeModal">×</button>
-
+                <button class="modal-close" @click="closeModal">
+                    <img src="images/btn_close.svg" alt="close">
+                </button>
                 <!-- ✅ 在這裡包住整段內容 -->
                 <div class="item item_info"  v-if="modalData" :key="modalData.id">
                         <div class="row">

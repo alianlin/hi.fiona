@@ -2022,11 +2022,8 @@ footer p{
   top: 0;
   right: 0;
   background: transparent;
-	font-family: "jf-jinxuan";
-  padding: 5px 0;
-	font-size: 28px;
-	width: 46.5px;
-	font-weight: 100;
+	width: 3rem;
+  padding: 0.5rem;
 	color: #515151;
   cursor: pointer;
 	z-index: 999;

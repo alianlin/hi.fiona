@@ -1,7 +1,9 @@
 <div v-cloak class="modal_page modal-overlay " v-if="modalType === 'contact'" @click.self="closeModal">
   <div class="modal modal_contact">
       <div class="container-fluit container_contact">
-          <button  class="modal-close" @click="closeModal">×</button>
+          <button  class="modal-close" @click="closeModal">
+            <img src="images/btn_close.svg" alt="close">
+          </button>
       </div>
       <div class="item">
           <form v-if="submitStatus === 'idle'" @submit.prevent="submitForm">
