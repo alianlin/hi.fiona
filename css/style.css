@@ -2022,7 +2022,10 @@ footer p{
   top: 0;
   right: 0;
   background: transparent;
-	font-size: 32px;
+	font-family: "jf-jinxuan";
+	padding: 0;
+  padding-bottom: 5px;
+	font-size: 28px;
 	width: 44px;
 	font-weight: 100;
 	color: #515151;
@@ -2030,7 +2033,6 @@ footer p{
 	z-index: 999;
 	background: #fff;
 	border-radius: 100%;
-	padding: 0;
 	padding-bottom: 0.08rem;
 	translate: 30% -30%;
 	border: 1px #ccc solid;
@@ -2038,7 +2040,7 @@ footer p{
 
 .modal_contact{
 	max-width: 600px;
-	padding: 2rem;
+	padding: 1.2rem;
 	box-sizing: border-box;
 }
 
