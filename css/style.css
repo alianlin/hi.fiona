@@ -1997,6 +1997,10 @@ footer p{
   border-radius: 1.2rem;
 }
 
+.modal_page.vue-cloak{
+	display: none;
+}
+
 .modal .item_info{
 	max-height: 70vh;
   padding: 1.2em;
