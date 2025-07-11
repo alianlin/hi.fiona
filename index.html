@@ -89,7 +89,7 @@
                     class="item item_design swiper-slide"
                     :href="`products.html#${item.products_id}`">
                         <div class="pic">
-                            <img  :src="item.product_img" :alt="item.products_title">
+                            <img  :src="item.product_img" :alt="item.products_title" loading="lazy">
                         </div>
                         <h3 class="title">
                             <p class="main">{{ item.products_title }}</p>
@@ -99,10 +99,10 @@
                 </div>
             </div>
             <div class="swiper-button swiper-button-prev ">
-                <img src="images/slide_arrow.png" alt="preview">
+                <img src="images/slide_arrow.png" alt="preview" loading="lazy">
             </div>
             <div class="swiper-button swiper-button-next ">
-                <img src="images/slide_arrow.png" alt="next">
+                <img src="images/slide_arrow.png" alt="next" loading="lazy">
             </div>
             <a href="products.html" class="btn_primary">
                 <span>More</span>
