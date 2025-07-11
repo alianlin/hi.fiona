@@ -93,7 +93,7 @@
             <!-- 全圖片顯示 -->
             <div class="info_area info_gallery">
                 <div class="row row_content">
-                    <div class="item item_pic" data-aos="fade" v-for="item in pagedProjects" :key="item.id" @click="openModal(item)">
+                    <div class="item item_pic" data-aos="fade" v-for="item in pagedProjects" :key="item.id" @click="openModal('product', item)">
                         <figure>
                             <img :src="item.imageUrl" :alt="item.title" />
                             <figcaption>
@@ -164,38 +164,43 @@
         </span>
     </a>
     <!-- Modal 外層 -->
-    <div class="modal_page modal-overlay" v-if="showModal && modalItem" @click.self="closeModal">
+    <div class="modal_page modal-overlay" v-if="modalType === 'product'" @click.self="closeModal">
         <div class="modal">
             <div class="container-fluit container_design">
                 <button class="modal-close" @click="closeModal">×</button>
 
                 <!-- ✅ 在這裡包住整段內容 -->
-                <div class="item item_info"  v-for="item in [modalItem]" :key="item.id">
+                <div class="item item_info"  v-if="modalData" :key="modalData.id">
                         <div class="row">
                             <div class="col-12 col-md-8">
                                 <div class="item item_pic">
-                                    <img :src="item.imageUrl" :alt="item.title" />
+                                    <img :src="modalData.imageUrl" :alt="modalData.title" />
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="item">
-                                    <h2 class="info_title" v-if="item.title.length">
-                                        <p>{{ item.title }}</p>
+                                    <h2 class="info_title" v-if="modalData.title.length">
+                                        <p>{{ modalData.title }}</p>
                                     </h2>
-                                    <div class="info_tag">
-                                        <span v-if="item.category.length" class="tag">{{ item.category }}</span>
-                                        <!-- <span v-if="item.year.length" class="tag">{{ item.year }}</span> -->
+                                    <div class="info_tag" v-if="modalData.category.length">
+                                        <span class="tag" v-for="tag in modalData.category.split('、')" :key="tag.trim()">
+                                          {{ tag.trim() }}
+                                        </span>
                                     </div>
                                     <h5 class="info_content">
-                                        <p v-html="item.description">{{ item.description }}</p>
+                                        <p v-html="modalData.description">{{ modalData.description }}</p>
                                     </h5>
                                 </div>
                                 <div class="info_more">
-                                    <a href="#" class="btn_more info_more" target="_blank" rel="noopener">
+                                    <!-- <a href="#" class="btn_more info_more btn_primary" target="_blank" rel="noopener">
                                         <span class="text">聯絡我們</span>
                                         <span class="circle">
-                                            <img class="arrow" src="images/btn_arrow_s.svg" alt="scroll down">
+                                            <img class="arrow" src="images/btn_arrow.svg" alt="scroll down">
                                         </span>
+                                    </a> -->
+                                    <a href="javascript:void(0);" class="btn_primary btn_sbtn"  @click="openModal('contact', item)">
+                                        <span class="text">聯絡我們</span>
+                                        <img class="arrow" src="images/btn_arrow.png" alt="go to Skills">
                                     </a>
                                 </div>
                             </div>
@@ -204,30 +209,40 @@
             </div>
         </div>
     </div>
+    <div id="modalContainer"></div>
+    
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script src="js/mold.js"></script>
+
 <script type="module">
-        import {
-        createApp,
-        ref,
-        onMounted,
-        watch,
-        nextTick
-        } from 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.esm-browser.prod.js';
-
-        import { useFetchData } from './js/useFetchData.js';
-        import { usePagination } from './js/usePagination.js';
-        import { initJustfont } from './js/useJustfont.js';
-
-        createApp({
+    import {
+      createApp,
+      ref,
+      onMounted,
+      watch,
+      nextTick
+    } from 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.esm-browser.prod.js';
+    
+    import { useFetchData } from './js/useFetchData.js';
+    import { usePagination } from './js/usePagination.js';
+    import { initJustfont } from './js/useJustfont.js';
+    import { useContactModal } from './js/useContactModal.js';
+    
+    (async () => {
+      // ✅ 先 fetch modal，再插入 DOM
+      const modalHTML = await fetch('modal_contact.html').then(res => res.text());
+      document.getElementById('modalContainer').innerHTML = modalHTML;
+    
+      // ✅ 接著再 mount Vue
+      createApp({
         setup() {
-            const isLoading = ref(true);
-
-            const {
+          const isLoading = ref(true);
+    
+          const {
             categories,
             currentCategory,
             projects,
@@ -235,9 +250,9 @@
             fetchData,
             tabMap,
             fetchHomeData  
-            } = useFetchData();
-
-            const {
+          } = useFetchData();
+    
+          const {
             currentPage,
             totalPages,
             pagedProjects,
@@ -245,9 +260,18 @@
             selectedYear,
             searchInput,
             doSearch,
-            } = usePagination(projects);
-
-            const changeTab = (tab) => {
+          } = usePagination(projects);
+    
+          const {
+            modalType,
+            modalData,
+            submitStatus,
+            openModal,
+            closeModal,
+            submitForm
+          } = useContactModal();
+    
+          const changeTab = (tab) => {
             if (currentCategory.value === tab) return;
             isLoading.value = true;
             currentCategory.value = tab;
@@ -256,58 +280,45 @@
             selectedYear.value = '';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             window.location.hash = `#${tab}`;
-            };
-
-            //modal
-            const showModal = ref(false);        // 控制是否顯示 modal
-            const modalItem = ref(null);         // 儲存點擊的項目資料
-            const openModal = (item) => {
-            modalItem.value = item;
-            showModal.value = true;
-            };
-            const closeModal = () => {
-            showModal.value = false;
-            modalItem.value = null;
-            };
-
-
-            // ✅ 監聽網址 hash，確保 tab 狀態一致
-            window.addEventListener('hashchange', () => {
+          };
+    
+          // 🔒 body 滾動鎖定
+          watch(modalType, (val) => {
+            const isOpen = Boolean(val);
+            document.documentElement.classList.toggle('scroll_lock', isOpen);
+          });
+    
+          // URL hash 切換 tab
+          window.addEventListener('hashchange', () => {
             const hash = decodeURIComponent(window.location.hash.replace('#', '')).toLowerCase();
             const match = categories.value.find(name => name.toLowerCase() === hash);
             if (match && match !== currentCategory.value) {
-                currentCategory.value = match;
-                console.log('🔁 hashchange → 切換 tab:', match);
+              currentCategory.value = match;
             }
-            });
-
-            // ✅ 當 categories 初次載入後，根據 hash 切換 tab
-            watch(categories, () => {
+          });
+    
+          watch(categories, () => {
             const hash = decodeURIComponent(window.location.hash.replace('#', '')).toLowerCase();
             const match = categories.value.find(name => name.toLowerCase() === hash);
-            if (match) {
-                currentCategory.value = match;
-                console.log('📌 初次載入根據 hash 切換 tab:', match);
-            }
-            }, { immediate: true });
-
-            onMounted(async () => {
+            if (match) currentCategory.value = match;
+          }, { immediate: true });
+    
+          onMounted(async () => {
             isLoading.value = true;
-            await fetchHomeData(); // ✅ 一定要在 fetchData() 之前執行
-            await fetchData();     // 先抓 tabs
-            await nextTick();      // 等畫面更新
-            initJustfont();        // 套用字體
+            await fetchHomeData();
+            await fetchData();
+            await nextTick();
+            initJustfont();
             isLoading.value = false;
-            });
-
-            // 當 currentCategory 改變時，自動載入資料並顯示 loading 畫面
-            watch(currentCategory, async () => {
+          });
+    
+          watch(currentCategory, async () => {
             isLoading.value = true;
             await nextTick();
             isLoading.value = false;
-            });
-
-            return {
+          });
+    
+          return {
             isLoading,
             categories,
             currentCategory,
@@ -321,13 +332,16 @@
             availableYears,
             selectedYear,
             doSearch,
-            showModal,
-            modalItem,
+            modalType,
+            modalData,
             openModal,
             closeModal,
+            submitForm,
+            submitStatus,
             tabMap
-            };
+          };
         }
-        }).mount('#design');
-</script>
+      }).mount('#design');
+    })();
+    </script>
 </html>

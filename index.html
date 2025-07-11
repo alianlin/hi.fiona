@@ -29,7 +29,7 @@
     <script src="//s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-64282.js"></script>
 </head>
 
-<body class="index">
+<body>
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGWNDDQ"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -42,6 +42,7 @@
     </div>
     <header class="header" id="header">
     </header>
+    <div id="index" class="index">
     <div class="section_kv">
         <div class="content" data-aos="kv-fadeOut" data-aos-anchor=".kv-fadeOut" data-aos-anchor-placement="top-bottom">
             <h1 class="visually_hide">
@@ -120,6 +121,10 @@
                     Hi.Fiona 是一間專注於花藝、花飾的小工作室﹐<br>每一件都是靈感與創意的結晶﹐<br>無論是從花束、桌花、飾品<br class="s_block">到生活周邊小物﹐<br>都是用雙手與熱情創作而出<br class="s_block">充滿手作溫度獨一無二的作品。
                 </h3>
             </div>
+            <a href="javascript:void(0);" class="btn_primary"   @click="openModal('contact', item)">
+                <span>Contact</span>
+                <img class="arrow" src="images/btn_arrow.png" alt="go to Skills">
+            </a>
         </div>
     </section>
     <div id="footer"></div>
@@ -129,6 +134,9 @@
             <img class="arrow" src="images/btn_arrow_sw.svg" alt="top">
         </span>
     </a>
+    <!-- modal -->
+    <div id="modalContainer"></div>
+    </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -142,55 +150,83 @@
       createApp,
       ref,
       onMounted,
-      nextTick
+      nextTick,
+      watch
     } from 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.esm-browser.prod.js';
     
     import { useFetchData } from './js/useFetchData.js';
+    import { useContactModal } from './js/useContactModal.js';
     
-    createApp({
-      setup() {
-        const { homeData, fetchHomeData } = useFetchData();
+    (async () => {
+      // ✅ 先載入 modal HTML 再掛 Vue
+      const modalHTML = await fetch('modal_contact.html').then(res => res.text());
+      document.getElementById('modalContainer').innerHTML = modalHTML;
     
-        onMounted(async () => {
-          await fetchHomeData(); // 載入資料
-          await nextTick();      // 等 DOM 渲染完
-          initSwiper();          // 再初始化 Swiper
-        });
+      createApp({
+        setup() {
+          const { homeData, fetchHomeData } = useFetchData();
     
-        const initSwiper = () => {
-          new Swiper(".mySwiper", {
-            effect: 'coverflow',
-            grabCursor: true,
-            loop: true,
-            centeredSlides: true,
-            keyboard: true,
-            spaceBetween: 10,
-            slidesPerView: 2,
-            speed: 300,
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            },
-            coverflowEffect: {
-              rotate: 0,
-              stretch: 0,
-              depth: 0,
-              modifier: 3,
-              slideShadows: false
-            },
-            breakpoints: {
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              }
-            },
+          onMounted(async () => {
+            await fetchHomeData();
+            await nextTick();
+            initSwiper();
           });
-        };
     
-        return {
-          homeData
-        };
-      }
-    }).mount('.section_products');
+          const initSwiper = () => {
+            new Swiper(".mySwiper", {
+              effect: 'coverflow',
+              grabCursor: true,
+              loop: true,
+              centeredSlides: true,
+              keyboard: true,
+              spaceBetween: 10,
+              slidesPerView: 2,
+              speed: 300,
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+              coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 0,
+                modifier: 3,
+                slideShadows: false
+              },
+              breakpoints: {
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                }
+              },
+            });
+          };
+    
+          const {
+            modalType,
+            modalData,
+            submitStatus,
+            openModal,
+            closeModal,
+            submitForm
+          } = useContactModal();
+    
+          // ✅ 滾輪鎖定（加強版）
+          watch(modalType, (val) => {
+            document.documentElement.classList.toggle('scroll_lock', !!val);
+          });
+    
+          return {
+            homeData,
+            modalType,
+            modalData,
+            openModal,
+            closeModal,
+            submitForm,
+            submitStatus
+          };
+        }
+      }).mount('#index');
+    })();
     </script>
 </html>

@@ -1,0 +1,70 @@
+<div class="modal_page modal-overlay" v-if="modalType === 'contact'" @click.self="closeModal">
+  <div class="modal modal_contact">
+      <div class="container-fluit container_contact">
+          <button  class="modal-close" @click="closeModal">×</button>
+      </div>
+      <div class="item">
+          <form v-if="submitStatus === 'idle'" @submit.prevent="submitForm">
+              <h4 class="title">聯絡我們</h4>
+              <p class="item item_text">
+                  填寫您的聯絡資訊與我們聯繫，<br class="s_br">後續將會專人與您聯繫，<br>
+                  您也可以加入我們的<a href="https://line.me/R/ti/p/@747psddg?oat_content=url&ts=06191243" class="btn btn_link" target="_blank" rel="noopener">
+                      官方 Line 帳號</a><br class="s_br">直接與我們聯繫。
+              </p>
+              <div class="form_label">
+                  <label for="name" class="label_name">姓名*</label>
+                  <input type="text" id="name" name="name"  class="input_content" required>
+              </div>
+  
+              <div class="form_label">
+                  <label for="email" class="label_name">電子郵件*</label>
+                  <input type="email" id="email" name="email"   class="input_content" required>
+              </div>
+              
+              <div class="form_label">
+                  <label for="lineid" class="label_name">LINE ID</label>
+                  <input type="text" id="lineid" name="lineid"   class="input_content">
+              </div>
+  
+              <div class="form_label">
+                  <label for="message" class="label_name">洽詢事宜及問題*</label>
+                  <textarea id="message" name="message" rows="4"  class="input_content" required></textarea>
+              </div>
+  
+              <button type="submit" class="btn_primary btn_sbtn submit-button">
+                  <span class="text">提交</span>
+                  <img class="arrow" src="images/btn_arrow.png" alt="go to Skills">
+              </button>
+              
+          </form>
+          <!-- 用於顯示回應訊息的區域 -->
+          <!-- ✅ 表單送出中 -->
+          <div v-if="submitStatus === 'sending'" class="info_sending text-center">
+              <div class="container container_result">
+                      <div class="item item_icon">
+                          <img src="images/icon_sending.svg" alt="">
+                      </div>
+                      <div class="item">
+                          <h5>正在送出中，請稍候...</h5>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- ✅ 表單送出成功 -->
+          <div v-if="submitStatus === 'success'" class="info_success text-center">
+              <div class="container container_result">
+                      <div class="item item_icon">
+                          <img src="images/icon_success.svg" alt="">
+                      </div>
+                      <div class="item">
+                          <h5> 資料已成功送出，感謝您的填寫！<br>
+                              後續將會有專人與您聯繫。
+                          </h5>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
