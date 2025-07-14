@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap');
 
 :root{
 	--primary_color: #A57E9A;
@@ -2022,7 +2023,7 @@ footer p{
   right: 0;
   background: transparent;
 	width: 3rem;
-  padding: 0.5rem;
+    padding: 0.5rem;
 	color: #515151;
   cursor: pointer;
 	z-index: 999;
