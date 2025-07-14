@@ -4,11 +4,21 @@ $('#header').load('header.html');
 $('#footer').load('footer.html');
 
 // loading
-$(window).on("load", function(){
-    $('#loading').delay(5000).removeClass('is-active');
-    $('html').delay(5000).removeClass('scroll_lock');
-    $('.section_kv').delay(5000).addClass('is-active');
-});
+// $(window).on("load", function(){
+//     $('#loading').delay(5000).removeClass('is-active');
+//     $('html').delay(5000).removeClass('scroll_lock');
+//     $('.section_kv').delay(5000).addClass('is-active');
+// });
+// 替換原本 delay(5000) 的寫法
+window.addEventListener("load", () => {
+    $('#loading').removeClass('is-active');
+    $('html').removeClass('scroll_lock');
+    $('.section_kv').addClass('is-active');
+  });
+
+  setTimeout(() => {
+    $('#loading').removeClass('is-active');
+  }, 1000); // 最多延遲 1 秒過渡
 
 // header
 $(function() {

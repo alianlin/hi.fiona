@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"></script>
-    <script src="//s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-64282.js"></script>
+    <script  src="//s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-64282.js"></script>
 </head>
 
 <body>
@@ -54,12 +54,16 @@
             </div>
         </div>
         <div class="kv_bg">
-            <div class="kv_img kv_pc b_block">
+            <!-- <div class="kv_img kv_pc b_block">
                 <img src="images/kv_pc.jpg" alt="kv">
             </div>
             <div class="kv_img kv_m s_block">
                 <img src="images/kv_m.jpg" alt="kv">
-            </div>
+            </div> -->
+            <picture>
+                <source srcset="images/kv_pc.jpg"  media="(min-width:768px)">
+                <img src="images/kv_m.jpg" alt="Hi. Fiona Flower ｜ Flower Made with Heart">
+            </picture>
         </div>
         <!-- <div class="kv_info">
 	        <a class="kv_scroll btn_more" href="#section_skills" data-aos="kv-fadeOut" data-aos-anchor=".kv_scroll-fadeOut">
@@ -159,8 +163,10 @@
     
     (async () => {
       // ✅ 先載入 modal HTML 再掛 Vue
-      const modalHTML = await fetch('modal_contact.html').then(res => res.text());
-      document.getElementById('modalContainer').innerHTML = modalHTML;
+    //   const modalHTML = await fetch('modal_contact.html').then(res => res.text());
+    //   document.getElementById('modalContainer').innerHTML = modalHTML;
+    const modalHTML = await fetch('modal_contact.html').then(res => res.text());
+    document.getElementById('modalContainer').innerHTML = modalHTML;
     
       createApp({
         setup() {

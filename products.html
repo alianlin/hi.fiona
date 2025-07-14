@@ -49,12 +49,16 @@
             </h1>
        </div>
        <div class="kv_bg">
-            <div class="kv_img kv_pc b_block">
+            <!-- <div class="kv_img kv_pc b_block">
                 <img src="images/kv_banner_pc.jpg" alt="kv">
             </div>
             <div class="kv_img kv_m s_block">
                 <img src="images/kv_banner_m.jpg" alt="kv">
-            </div>
+            </div> -->
+            <picture>
+                <source srcset="images/kv_banner_pc.jpg"  media="(min-width:768px)">
+                <img src="images/kv_banner_m.jpg" alt="Hi. Fiona Flower ｜ Flower Made with Heart">
+            </picture>
         </div>
     </div>
     <section class="section_page design_page products_page">
@@ -187,8 +191,10 @@
     
     (async () => {
       // ✅ 先 fetch modal，再插入 DOM
-      const modalHTML = await fetch('modal_contact.html').then(res => res.text());
-      document.getElementById('modalContainer').innerHTML = modalHTML;
+    //   const modalHTML = await fetch('modal_contact.html').then(res => res.text());
+    //   document.getElementById('modalContainer').innerHTML = modalHTML;
+    const modalHTML = await fetch('modal_contact.html').then(res => res.text());
+    document.getElementById('modalContainer').innerHTML = modalHTML;
     
       // ✅ 接著再 mount Vue
       createApp({
