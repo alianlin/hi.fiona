@@ -2,7 +2,7 @@ import { ref, computed } from 'https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.
 
 export function usePagination(projects) {
   const currentPage = ref(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 10;
   const searchInput = ref('');
   const searchKeyword = ref('');
   const selectedYear = ref('');
